@@ -1,0 +1,35 @@
+# Ignore build output
+/dist
+/build
+/node_modules
+
+# Ignore lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ignore config and environment files
+.env
+.env.* 
+
+# Ignore all coverage output
+coverage
+
+# Ignore compiled source files
+*.min.js
+*.bundle.js
+
+# Ignore specific asset or generated folders
+public
+*.log
+
+# Optional: ignore generated API/client files
+generated
+
+# Ignore version control folder
+.git
+
+# Optional: ignore editor/project settings
+.vscode
+.idea
+.DS_Store
