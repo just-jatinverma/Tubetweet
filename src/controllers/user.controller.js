@@ -31,7 +31,6 @@ const registerUser = asyncHandler(async (req, res) => {
   // check for response
 
   const { userName, email, fullName, password } = req.body;
-  console.log(`userName ${userName} email ${email} name ${fullName} password ${password}`);
 
   if ([userName, email, fullName, password].some((field) => field?.trim() === '')) {
     throw new ApiError(400, 'all fields are required');
@@ -298,6 +297,71 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
   ).select('-password');
 
   return res.status(200).json(new apiResponse(200, user, 'cover image successfully updated'));
+});
+
+const getUserChannelProfile = asyncHandler(async (req, res) => {
+  const { username } = req.params;
+
+  if (!username?.trim()) {
+    throw new ApiError(400, 'User Name is Missing');
+  }
+
+  const channel = await User.aggregate([
+    {
+      $match: {
+        userName: username?.toLowerCase(),
+      },
+    },
+    {
+      $lookup: {
+        from: 'subscriptions',
+        localField: '_id',
+        foreignField: 'channel',
+        as: 'subscribers',
+      },
+    },
+    {
+      $lookup: {
+        from: 'subscriptions',
+        localField: '_id',
+        foreignField: 'subscribers',
+        as: 'subscribedTo',
+      },
+    },
+    {
+      $addFields: {
+        subscriberCount: {
+          $size: { $subscribers },
+        },
+        channelsSubscribedToCount: {
+          $size: { $subscribedTo },
+        },
+        isSubscribed: {
+          $in: [req.user?._id, 'subscribers.subscription'],
+        },
+      },
+    },
+    {
+      $project: {
+        fullName: 1,
+        userName: 1,
+        subscriberCount: 1,
+        channelsSubscribedToCount: 1,
+        isSubscribed: 1,
+        avatar: 1,
+        coverImage: 1,
+        email: 1,
+      },
+    },
+  ]);
+
+  if (!channel?.length) {
+    throw new ApiError(400, "channel don't exist");
+  }
+
+  return res
+    .status(200)
+    .json(new apiResponse(200, channel[0], 'User Channel fetched successfully'));
 });
 
 export {
