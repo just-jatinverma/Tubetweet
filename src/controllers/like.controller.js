@@ -11,7 +11,7 @@ const toggleVideoLike = asyncHandler(async (req, res) => {
   const { videoId } = req.params;
   const userId = req.user._id;
 
-  if (!mongoose.Types.ObjectId.isValid(videoId)) {
+  if (!mongoose.Types.isValidObjectId(videoId)) {
     throw new ApiError(404, 'video not found');
   }
 
