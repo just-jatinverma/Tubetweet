@@ -1,5 +1,5 @@
 import { asyncHandler } from '../utils/asyncHandler';
-import { ApiError } from '../utils/apiError';
+import { ApiError } from '../utils/ApiError.js';
 import { apiResponse } from '../utils/apiResponse';
 import { Playlist } from '../models/playlist.model';
 

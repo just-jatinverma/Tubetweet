@@ -1,5 +1,5 @@
 import { asyncHandler } from '../utils/asyncHandler.js';
-import { ApiError } from '../utils/apiError.js';
+import { ApiError } from '../utils/ApiError';
 import { User } from '../models/user.model.js';
 import { uploadOnImageKit } from '../utils/imagekit.js';
 import { apiResponse } from '../utils/apiResponse.js';

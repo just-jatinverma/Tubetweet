@@ -1,5 +1,5 @@
 import { asyncHandler } from '../utils/asyncHandler';
-import { ApiError } from '../utils/apiError';
+import { ApiError } from '../utils/ApiError';
 import { apiResponse } from '../utils/apiResponse';
 import { Comment } from '../models/comment.model';
 

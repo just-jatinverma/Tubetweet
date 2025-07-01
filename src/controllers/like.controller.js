@@ -1,7 +1,7 @@
 import { Like } from '../models/like.model';
 import { asyncHandler } from '../utils/asyncHandler';
-import { ApiError } from '../utils/apiError';
-import { apiResponse } from '../utils/apiResponse';
+import { ApiError } from '../utils/ApiError.js';
+import { apiResponse } from '../utils/apiResponse.js';
 import { Video } from '../models/videos.model';
 import { Comment } from '../models/comment.model';
 import { Tweet } from '../models/tweet.model';
