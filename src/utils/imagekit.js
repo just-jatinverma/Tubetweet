@@ -28,4 +28,14 @@ const uploadOnImageKit = async (localFilePath) => {
   }
 };
 
-export { uploadOnImageKit };
+const deleteFromImagekit = async (fieldId) => {
+  try {
+    const response = await imageKit.deleteFile(fieldId);
+    return response;
+  } catch (error) {
+    console.error('ImageKit deletion failed:', error?.message || error);
+    return null;
+  }
+};
+
+export { uploadOnImageKit, deleteFromImagekit };

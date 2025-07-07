@@ -2,7 +2,7 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 import { ApiError } from '../utils/ApiError';
 import { User } from '../models/user.model.js';
 import { uploadOnImageKit } from '../utils/imagekit.js';
-import { apiResponse } from '../utils/apiResponse.js';
+import { ApiResponse } from '../utils/ApiResponse.js';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 
@@ -78,7 +78,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(500, 'something went wrong while registering the user ');
   }
 
-  return res.status(201).json(new apiResponse(200, createdUser, 'user registered successfully'));
+  return res.status(201).json(new ApiResponse(200, createdUser, 'user registered successfully'));
 });
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -121,7 +121,7 @@ const loginUser = asyncHandler(async (req, res) => {
     .cookie('accessToken', accessToken, options)
     .cookie('refreshToken', refreshToken, options)
     .json(
-      new apiResponse(
+      new ApiResponse(
         200,
         {
           user: loggedInUser,
@@ -153,7 +153,7 @@ const logOutUser = asyncHandler(async (req, res) => {
     .status(200)
     .clearCookie('accessToken', options)
     .clearCookie('refreshToken', options)
-    .json(new apiResponse(200, {}, 'User Logged Out successfully'));
+    .json(new ApiResponse(200, {}, 'User Logged Out successfully'));
 });
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
@@ -188,7 +188,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
       .cookie('accessToken', accessToken, options)
       .cookie('refreshToken', newRefreshToken, options)
       .json(
-        new apiResponse(
+        new ApiResponse(
           200,
           {
             accessToken,
@@ -220,11 +220,11 @@ const changePassword = asyncHandler(async (req, res) => {
   user.password = newPassword;
   await user.save({ validateBeforeSave: false });
 
-  return res.status(200).json(new apiResponse(200, {}, 'password changed successfully'));
+  return res.status(200).json(new ApiResponse(200, {}, 'password changed successfully'));
 });
 
 const getCurrentUser = asyncHandler(async (req, res) => {
-  return res.status(200).json(new apiResponse(200, req.user, 'current user fetched successfully'));
+  return res.status(200).json(new ApiResponse(200, req.user, 'current user fetched successfully'));
 });
 
 const updateAccountDetails = asyncHandler(async (req, res) => {
@@ -245,7 +245,7 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
     { new: true }
   ).select('-password');
 
-  return res.status(200).json(new apiResponse(200, user, 'account details updated successfully'));
+  return res.status(200).json(new ApiResponse(200, user, 'account details updated successfully'));
 });
 
 const updateUserAvatar = asyncHandler(async (req, res) => {
@@ -271,7 +271,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     { new: true }
   ).select('-password');
 
-  return res.status(200).json(new apiResponse(200, user, 'Avatar image successfully updated'));
+  return res.status(200).json(new ApiResponse(200, user, 'Avatar image successfully updated'));
 });
 
 const updateUserCoverImage = asyncHandler(async (req, res) => {
@@ -297,7 +297,7 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
     { new: true }
   ).select('-password');
 
-  return res.status(200).json(new apiResponse(200, user, 'cover image successfully updated'));
+  return res.status(200).json(new ApiResponse(200, user, 'cover image successfully updated'));
 });
 
 const getUserChannelProfile = asyncHandler(async (req, res) => {
@@ -362,7 +362,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(new apiResponse(200, channel[0], 'User Channel fetched successfully'));
+    .json(new ApiResponse(200, channel[0], 'User Channel fetched successfully'));
 });
 
 const watchHistory = asyncHandler(async (req, res) => {
@@ -410,7 +410,7 @@ const watchHistory = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(new apiResponse(200, user[0].watchHistory, 'watch history fetched successfully'));
+    .json(new ApiResponse(200, user[0].watchHistory, 'watch history fetched successfully'));
 });
 
 export {

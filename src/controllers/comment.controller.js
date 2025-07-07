@@ -1,6 +1,6 @@
 import { asyncHandler } from '../utils/asyncHandler';
 import { ApiError } from '../utils/ApiError';
-import { apiResponse } from '../utils/apiResponse';
+import { ApiResponse } from '../utils/ApiResponse';
 import { Comment } from '../models/comment.model';
 
 const getVideoComments = asyncHandler(async (req, res) => {
@@ -15,7 +15,7 @@ const getVideoComments = asyncHandler(async (req, res) => {
     'fullName userName avatar'
   );
 
-  return res.status(200).json(new apiResponse(200, comments, 'Comments send successfully'));
+  return res.status(200).json(new ApiResponse(200, comments, 'Comments send successfully'));
 });
 
 const addComment = asyncHandler(async (req, res) => {
@@ -42,7 +42,7 @@ const addComment = asyncHandler(async (req, res) => {
     owner: userid,
   });
 
-  return res.status(200).json(new apiResponse(200, newComment, 'Comments send successfully'));
+  return res.status(200).json(new ApiResponse(200, newComment, 'Comments send successfully'));
 });
 
 const updateComment = asyncHandler(async (req, res) => {
@@ -72,7 +72,7 @@ const updateComment = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(new apiResponse(200, updatedComment, 'Comments updated successfully'));
+    .json(new ApiResponse(200, updatedComment, 'Comments updated successfully'));
 });
 
 const deleteComment = asyncHandler(async (req, res) => {
@@ -91,7 +91,7 @@ const deleteComment = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(new apiResponse(200, updatedComment, 'Comments deleted successfully'));
+    .json(new ApiResponse(200, updatedComment, 'Comments deleted successfully'));
 });
 
 export { getVideoComments, addComment, updateComment, deleteComment };

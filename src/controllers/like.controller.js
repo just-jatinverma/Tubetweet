@@ -1,7 +1,7 @@
 import { Like } from '../models/like.model';
 import { asyncHandler } from '../utils/asyncHandler';
 import { ApiError } from '../utils/ApiError.js';
-import { apiResponse } from '../utils/apiResponse.js';
+import { ApiResponse } from '../utils/ApiResponse.js';
 import { Video } from '../models/videos.model';
 import { Comment } from '../models/comment.model';
 import { Tweet } from '../models/tweet.model';
@@ -32,7 +32,7 @@ const toggleVideoLike = asyncHandler(async (req, res) => {
     isLiked = true;
   }
 
-  return res.status(200).json(new apiResponse(200, { isLiked }, isLiked ? 'Liked' : 'unLiked'));
+  return res.status(200).json(new ApiResponse(200, { isLiked }, isLiked ? 'Liked' : 'unLiked'));
 });
 
 const toggleCommentLike = asyncHandler(async (req, res) => {
@@ -60,7 +60,7 @@ const toggleCommentLike = asyncHandler(async (req, res) => {
     isLiked = true;
   }
 
-  return res.status(200).json(new apiResponse(200, { isLiked }, isLiked ? 'Liked' : 'unLiked'));
+  return res.status(200).json(new ApiResponse(200, { isLiked }, isLiked ? 'Liked' : 'unLiked'));
 });
 
 const toggleTweetLike = asyncHandler(async (req, res) => {
@@ -88,7 +88,7 @@ const toggleTweetLike = asyncHandler(async (req, res) => {
     isLiked = true;
   }
 
-  return res.status(200).json(new apiResponse(200, { isLiked }, isLiked ? 'Liked' : 'unLiked'));
+  return res.status(200).json(new ApiResponse(200, { isLiked }, isLiked ? 'Liked' : 'unLiked'));
 });
 
 const getLikedVideos = asyncHandler(async (req, res) => {
@@ -99,7 +99,7 @@ const getLikedVideos = asyncHandler(async (req, res) => {
     populate: { path: 'owner', select: '-password -refreshToken' },
   });
 
-  return res.status(200).json(new apiResponse(200, likedVideos, 'all liked videos'));
+  return res.status(200).json(new ApiResponse(200, likedVideos, 'all liked videos'));
 });
 
 export { toggleVideoLike, toggleCommentLike, toggleTweetLike, getLikedVideos };

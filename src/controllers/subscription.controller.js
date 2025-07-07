@@ -2,7 +2,7 @@ import mongoose, { isValidObjectId } from 'mongoose';
 import { User } from '../models/user.model.js';
 import { Subscription } from '../models/subscription.model.js';
 import { ApiError } from '../utils/ApiError.js';
-import { apiResponse } from '../utils/apiResponse';
+import { ApiResponse } from '../utils/ApiResponse';
 import { asyncHandler } from '../utils/asyncHandler.js';
 
 const toggleSubscription = asyncHandler(async (req, res) => {
@@ -35,7 +35,7 @@ const toggleSubscription = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(new apiResponse(200, { isSubscribed }, isSubscribed ? 'Subscribed' : 'Unsubscribed'));
+    .json(new ApiResponse(200, { isSubscribed }, isSubscribed ? 'Subscribed' : 'Unsubscribed'));
 });
 
 // controller to return subscriber list of a channel
@@ -54,7 +54,7 @@ const getUserChannelSubscribers = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(new apiResponse(200, subscribers, 'subscribers fetched successfully'));
+    .json(new ApiResponse(200, subscribers, 'subscribers fetched successfully'));
 });
 
 // controller to return channel list to which user has subscribed
@@ -74,7 +74,7 @@ const getSubscribedChannels = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(new apiResponse(200, subscribedChannels, 'subscribed channels fetched successfully'));
+    .json(new ApiResponse(200, subscribedChannels, 'subscribed channels fetched successfully'));
 });
 
 export { toggleSubscription, getUserChannelSubscribers, getSubscribedChannels };

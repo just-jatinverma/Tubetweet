@@ -1,6 +1,6 @@
 import { asyncHandler } from '../utils/asyncHandler';
 import { ApiError } from '../utils/ApiError.js';
-import { apiResponse } from '../utils/apiResponse';
+import { ApiResponse } from '../utils/ApiResponse.js';
 import { Playlist } from '../models/playlist.model';
 
 const createPlaylist = asyncHandler(async (req, res) => {
@@ -18,7 +18,7 @@ const createPlaylist = asyncHandler(async (req, res) => {
     owner: userId,
   });
 
-  return res.status(200).json(new apiResponse(200, playlist, 'blank playlist created'));
+  return res.status(200).json(new ApiResponse(200, playlist, 'blank playlist created'));
 });
 
 const getUserPlaylists = asyncHandler(async (req, res) => {
@@ -26,7 +26,7 @@ const getUserPlaylists = asyncHandler(async (req, res) => {
 
   const playlists = await Playlist.find({ owner: userId }).sort({ createdAt: -1 });
 
-  return res.status(200).json(new apiResponse(200, playlists, 'All playlists for user'));
+  return res.status(200).json(new ApiResponse(200, playlists, 'All playlists for user'));
 });
 
 const getPlaylistById = asyncHandler(async (req, res) => {
@@ -38,7 +38,7 @@ const getPlaylistById = asyncHandler(async (req, res) => {
     throw new ApiError(40, 'Playlist not found');
   }
 
-  return res.status(200).json(new apiResponse(200, playlist, 'requested playlist'));
+  return res.status(200).json(new ApiResponse(200, playlist, 'requested playlist'));
 });
 
 const addVideoToPlaylist = asyncHandler(async (req, res) => {
@@ -62,7 +62,7 @@ const addVideoToPlaylist = asyncHandler(async (req, res) => {
 
   await playlist.save();
 
-  return res.status(200).json(new apiResponse(200, playlist, 'new playlist'));
+  return res.status(200).json(new ApiResponse(200, playlist, 'new playlist'));
 });
 
 const removeVideoFromPlaylist = asyncHandler(async (req, res) => {
@@ -88,7 +88,7 @@ const removeVideoFromPlaylist = asyncHandler(async (req, res) => {
 
   await playlist.save();
 
-  return res.status(200).json(new apiResponse(200, playlist, 'removed from playlist'));
+  return res.status(200).json(new ApiResponse(200, playlist, 'removed from playlist'));
 });
 
 const deletePlaylist = asyncHandler(async (req, res) => {
@@ -106,7 +106,7 @@ const deletePlaylist = asyncHandler(async (req, res) => {
 
   await Playlist.findByIdAndDelete(playlistId);
 
-  return res.status(200).json(new apiResponse(200, {}, 'playlist deleted'));
+  return res.status(200).json(new ApiResponse(200, {}, 'playlist deleted'));
 });
 
 const updatePlaylist = asyncHandler(async (req, res) => {
@@ -136,7 +136,7 @@ const updatePlaylist = asyncHandler(async (req, res) => {
     { new: true }
   );
 
-  return res.status(200).json(new apiResponse(200, updatedPlaylist, 'playlist updated'));
+  return res.status(200).json(new ApiResponse(200, updatedPlaylist, 'playlist updated'));
 });
 
 export {

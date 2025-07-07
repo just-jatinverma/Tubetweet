@@ -1,6 +1,6 @@
 import { asyncHandler } from '../utils/asyncHandler';
 import { ApiError } from '../utils/ApiError';
-import { apiResponse } from '../utils/apiResponse';
+import { ApiResponse } from '../utils/ApiResponse';
 import { Tweet } from '../models/tweet.model';
 import mongoose from 'mongoose';
 
@@ -17,7 +17,7 @@ const createTweet = asyncHandler(async (req, res) => {
     owner: userId,
   });
 
-  return res.status(200).json(new apiResponse(200, tweet, 'tweet created'));
+  return res.status(200).json(new ApiResponse(200, tweet, 'tweet created'));
 });
 const getUserTweets = asyncHandler(async (req, res) => {
   const { userId } = req.params;
@@ -28,7 +28,7 @@ const getUserTweets = asyncHandler(async (req, res) => {
 
   const tweet = await Tweet.find({ owner: userId }).sort({ createdAt: -1 });
 
-  return res.status(200).json(new apiResponse(200, tweet, 'All tweets'));
+  return res.status(200).json(new ApiResponse(200, tweet, 'All tweets'));
 });
 const updateTweet = asyncHandler(async (req, res) => {
   const { tweetId } = req.params;
@@ -61,7 +61,7 @@ const updateTweet = asyncHandler(async (req, res) => {
     { new: true }
   );
 
-  return res.status(200).json(new apiResponse(200, updatedTweet, 'tweet updated'));
+  return res.status(200).json(new ApiResponse(200, updatedTweet, 'tweet updated'));
 });
 const deleteTweet = asyncHandler(async (req, res) => {
   const { tweetId } = req.params;
@@ -84,7 +84,7 @@ const deleteTweet = asyncHandler(async (req, res) => {
 
   await Tweet.findByIdAndDelete(tweetId);
 
-  return res.status(200).json(new apiResponse(200, {}, 'tweet deleted'));
+  return res.status(200).json(new ApiResponse(200, {}, 'tweet deleted'));
 });
 
 export { createTweet, getUserTweets, updateTweet, deleteTweet };
