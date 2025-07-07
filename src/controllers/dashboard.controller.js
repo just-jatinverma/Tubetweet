@@ -6,9 +6,37 @@ import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 
-const getChannelStats = asyncHandler(async (req, res) => {
-  // TODO: Get the channel stats like total video views, total subscribers, total videos, total likes etc.
-});
+// const getChannelStats = asyncHandler(async (req, res) => {
+//   const userId = req.user._id;
+
+//   // Total videos and total views
+//   const videoStats = await Video.aggregate([
+//     { $match: { owner: userId } },
+//     {
+//       $group: {
+//         _id: null,
+//         totalVideos: { $sum: 1 },
+//         totalViews: { $sum: '$views' },
+//       },
+//     },
+//   ]);
+
+//   // Total subscribers
+//   const totalSubscribers = await Subscription.countDocuments({ channel: userId });
+
+//   // Total likes
+//   const totalLikes = await Like.countDocuments({ owner: userId });
+
+//   // Extract stats from aggregation
+//   const stats = {
+//     totalVideos: videoStats[0]?.totalVideos || 0,
+//     totalViews: videoStats[0]?.totalViews || 0,
+//     totalSubscribers,
+//     totalLikes,
+//   };
+
+//   return res.status(200).json(new ApiResponse(200, stats, 'Channel stats fetched successfully'));
+// });
 
 const getChannelVideos = asyncHandler(async (req, res) => {
   // TODO: Get all the videos uploaded by the channel
