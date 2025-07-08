@@ -6,52 +6,52 @@ import { ApiResponse } from '../utils/ApiResponse.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { uploadOnImageKit, deleteFromImagekit } from '../utils/imagekit.js';
 
-// const getAllVideos = asyncHandler(async (req, res) => {
-//   const {
-//     page = 1,
-//     limit = 10,
-//     query = '',
-//     sortBy = 'createdAt',
-//     sortType = 'desc',
-//     userId,
-//   } = req.query;
+const getAllVideos = asyncHandler(async (req, res) => {
+  const {
+    page = 1,
+    limit = 10,
+    query = '',
+    sortBy = 'createdAt',
+    sortType = 'desc',
+    userId,
+  } = req.query;
 
-//   const matchStage = {};
+  const matchStage = {};
 
-//   // Text search on title or description
-//   if (query) {
-//     matchStage.$or = [
-//       { title: { $regex: query, $options: 'i' } },
-//       { description: { $regex: query, $options: 'i' } },
-//     ];
-//   }
+  // Text search on title or description
+  if (query) {
+    matchStage.$or = [
+      { title: { $regex: query, $options: 'i' } },
+      { description: { $regex: query, $options: 'i' } },
+    ];
+  }
 
-//   // Filter by user ID (owner)
-//   if (userId && isValidObjectId(userId)) {
-//     matchStage.owner = new mongoose.Types.ObjectId(userId);
-//   }
+  // Filter by user ID (owner)
+  if (userId && isValidObjectId(userId)) {
+    matchStage.owner = new mongoose.Types.ObjectId(userId);
+  }
 
-//   // Determine sort direction
-//   const sortDirection = sortType === 'asc' ? 1 : -1;
-//   const sortStage = { [sortBy]: sortDirection };
+  // Determine sort direction
+  const sortDirection = sortType === 'asc' ? 1 : -1;
+  const sortStage = { [sortBy]: sortDirection };
 
-//   // Pagination options
-//   const options = {
-//     page: parseInt(page),
-//     limit: parseInt(limit),
-//     sort: sortStage,
-//     customLabels: {
-//       totalDocs: 'totalVideos',
-//       docs: 'videos',
-//     },
-//   };
+  // Pagination options
+  const options = {
+    page: parseInt(page),
+    limit: parseInt(limit),
+    sort: sortStage,
+    customLabels: {
+      totalDocs: 'totalVideos',
+      docs: 'videos',
+    },
+  };
 
-//   const aggregateQuery = Video.aggregate([{ $match: matchStage }]);
+  const aggregateQuery = Video.aggregate([{ $match: matchStage }]);
 
-//   const results = await Video.aggregatePaginate(aggregateQuery, options);
+  const results = await Video.aggregatePaginate(aggregateQuery, options);
 
-//   return res.status(200).json(new ApiResponse(200, results, 'Videos fetched successfully'));
-// });
+  return res.status(200).json(new ApiResponse(200, results, 'Videos fetched successfully'));
+});
 const publishAVideo = asyncHandler(async (req, res) => {
   const { title, description } = req.body;
 
