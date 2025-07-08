@@ -1,10 +1,10 @@
-import { Like } from '../models/like.model';
-import { asyncHandler } from '../utils/asyncHandler';
+import { Like } from '../models/like.model.js';
+import { asyncHandler } from '../utils/asyncHandler.js';
 import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
-import { Video } from '../models/videos.model';
-import { Comment } from '../models/comment.model';
-import { Tweet } from '../models/tweet.model';
+import { Video } from '../models/videos.model.js';
+import { Comment } from '../models/comment.model.js';
+import { Tweet } from '../models/tweet.model.js';
 import mongoose from 'mongoose';
 
 const toggleVideoLike = asyncHandler(async (req, res) => {
