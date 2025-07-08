@@ -33,7 +33,7 @@ Tubetweet is a full-stack-ready **backend API** that combines video sharing and 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/tubetweet.git
+git clone https://github.com/just-jatinverma/Tubetweet.git
 cd tubetweet
 ```
 
