@@ -125,7 +125,7 @@ npm run dev    # Run dev server with nodemon
 ## 📌 Note
 
 🛠 This project is part of the **Backend Mastery Course by Hitesh Choudhary (Chai aur Code)** on YouTube.
-📂 The initial `user.controller.js` and related authentication logic were built by **Hitesh Sir** in the course.
+📂 The initial `user.controller.js` and related authentication logic were built by @hiteshchoudhary sir in the course.
 🧑‍💻 All remaining controllers (videos, tweets, playlists, likes, comments, etc.) were implemented by **me** as part of my learning journey.
 
 📺 **Watch the course here**:
@@ -141,4 +141,4 @@ Licensed under the **ISC License** — free for personal and commercial use.
 
 ## 👨‍💻 Author
 
-Developed by \[just-jatinverma].
+Developed by @just-jatinverma.
