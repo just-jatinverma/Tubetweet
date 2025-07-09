@@ -157,7 +157,7 @@ const logOutUser = asyncHandler(async (req, res) => {
 });
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
-  const incomingRefreshToken = req.cookie.refreshToken || req.body.refreshToken;
+  const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken;
 
   if (!incomingRefreshToken) {
     throw new ApiError(401, 'unauthorized request');
@@ -374,14 +374,14 @@ const watchHistory = asyncHandler(async (req, res) => {
     },
     {
       $lookup: {
-        from: 'Videos',
+        from: 'videos',
         localField: 'watchHistory',
         foreignField: '_id',
         as: 'watchHistory',
         pipeline: [
           {
             $lookup: {
-              from: 'user',
+              from: 'users',
               localField: 'owner',
               foreignField: '_id',
               as: 'owner',

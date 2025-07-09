@@ -63,8 +63,8 @@ const publishAVideo = asyncHandler(async (req, res) => {
     throw new ApiError(400, 'bad request');
   }
 
-  const videoUpload = uploadOnImageKit(req.files.videoFile[0].path);
-  const thumbnailUpload = uploadOnImageKit(req.files.thumbnail[0].path);
+  const videoUpload = await uploadOnImageKit(req.files.videoFile[0].path);
+  const thumbnailUpload = await uploadOnImageKit(req.files.thumbnail[0].path);
 
   if (!videoUpload || !thumbnailUpload) {
     throw new ApiError(400, 'bad request');
@@ -94,7 +94,7 @@ const getVideoById = asyncHandler(async (req, res) => {
     videoId,
     { $inc: { views: 1 } },
     { new: true }
-  ).populate(owner);
+  ).populate('owner');
 
   if (!video) {
     throw new ApiError(400, 'bad request');
@@ -167,6 +167,8 @@ const deleteVideo = asyncHandler(async (req, res) => {
 });
 
 const togglePublishStatus = asyncHandler(async (req, res) => {
+  const { videoId } = req.params;
+
   if (!isValidObjectId(videoId)) {
     throw new ApiError(400, 'bad request');
   }

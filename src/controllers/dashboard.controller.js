@@ -24,7 +24,9 @@ const getChannelStats = asyncHandler(async (req, res) => {
   const totalSubscribers = await Subscription.countDocuments({ channel: userId });
 
   // Total likes
-  const totalLikes = await Like.countDocuments({ owner: userId });
+  const totalLikes = await Like.countDocuments({
+    video: { $in: await Video.find({ owner: userId }).distinct('_id') },
+  });
 
   // Extract stats from aggregation
   const stats = {
