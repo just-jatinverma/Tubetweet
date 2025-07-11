@@ -1,18 +1,22 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import swaggerUi from 'swagger-ui-express';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const swaggerDocument = require('./swagger_output.json');
 
 const app = express();
 
+// Middleware
 app.use(cors());
-
 app.use(express.json({ limit: '16kb' }));
-
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
-
 app.use(express.static('public'));
-
 app.use(cookieParser());
+
+// Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //routes import
 import userRouter from './routes/user.routes.js';
