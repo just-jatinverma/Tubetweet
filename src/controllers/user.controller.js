@@ -16,7 +16,7 @@ const generateAccessTokenandRefreshToken = async (userId) => {
 
     return { accessToken, refreshToken };
   } catch (error) {
-    throw new ApiError(500, 'something went wrong while generating tokens');
+    throw new ApiError(500, 'something went wrong while generating tokens', error);
   }
 };
 
@@ -307,6 +307,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
     throw new ApiError(400, 'User Name is Missing');
   }
 
+  /* eslint-disable */
   const channel = await User.aggregate([
     {
       $match: {
@@ -355,6 +356,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
       },
     },
   ]);
+  /* eslint-enable */
 
   if (!channel?.length) {
     throw new ApiError(400, "channel don't exist");

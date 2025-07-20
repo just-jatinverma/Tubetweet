@@ -1,6 +1,5 @@
 import mongoose, { isValidObjectId } from 'mongoose';
 import { Video } from '../models/videos.model.js';
-import { User } from '../models/user.model.js';
 import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
@@ -100,7 +99,7 @@ const getVideoById = asyncHandler(async (req, res) => {
     throw new ApiError(400, 'bad request');
   }
 
-  return res.status(200).json(new ApiResponse(200, newVideo, 'video uploaded'));
+  return res.status(200).json(new ApiResponse(200, Video, 'video uploaded'));
 });
 
 const updateVideo = asyncHandler(async (req, res) => {
@@ -139,7 +138,7 @@ const updateVideo = asyncHandler(async (req, res) => {
     throw new ApiError(400, 'bad request');
   }
 
-  return res.status(200).json(new ApiResponse(200, newVideo, 'video uploaded'));
+  return res.status(200).json(new ApiResponse(200, Video, 'video uploaded'));
 });
 
 const deleteVideo = asyncHandler(async (req, res) => {

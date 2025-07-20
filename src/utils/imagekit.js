@@ -25,6 +25,8 @@ const uploadOnImageKit = async (localFilePath) => {
     if (fs.existsSync(localFilePath)) {
       fs.unlinkSync(localFilePath);
     }
+    console.error('Error uploading to ImageKit:', error);
+    return null;
   }
 };
 
